@@ -1,0 +1,19 @@
+# OS
+.DS_Store
+
+# IDE
+.idea/
+.vscode/
+
+# Packaged extension and signing key (the .pem is the extension's private key)
+*.crx
+*.pem
+*.zip
+
+# Dependencies / logs, if added later
+node_modules/
+*.log
+
+# Secrets
+.env
+.env.*

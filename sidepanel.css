@@ -1,0 +1,176 @@
+:root {
+  color-scheme: light dark;
+  --bg: #ffffff;
+  --fg: #1f1f1f;
+  --muted: #6b6b6b;
+  --line: #e3e3e3;
+  --hover: #f2f2f2;
+  --accent: #1a73e8;
+  --accent-bg: #e8f0fe;
+  --danger: #c5221f;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #202124;
+    --fg: #e8eaed;
+    --muted: #9aa0a6;
+    --line: #3c4043;
+    --hover: #2a2b2e;
+    --accent: #8ab4f8;
+    --accent-bg: #2b3a55;
+    --danger: #f28b82;
+  }
+}
+
+* { box-sizing: border-box; }
+
+
+body {
+  margin: 0;
+  font: 13px/1.4 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: var(--fg);
+  background: var(--bg);
+  user-select: none;
+}
+
+#new-group-form { padding: 6px 8px; }
+#new-group-name {
+  width: 100%;
+  font: inherit;
+  padding: 5px 8px;
+  border: 1px dashed var(--line);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--fg);
+}
+#new-group-name::placeholder { color: var(--muted); }
+#new-group-name:focus { border-style: solid; border-color: var(--accent); outline: none; }
+
+#hint {
+  margin: 0;
+  padding: 8px 12px;
+  color: var(--muted);
+  font-size: 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+ul { list-style: none; margin: 0; padding: 0; }
+#groups:focus { outline: none; }
+
+.group { border-bottom: 1px solid var(--line); }
+
+.group-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 8px 6px 6px;
+  cursor: pointer;
+  border-left: 3px solid transparent;
+}
+.group-header:hover { background: var(--hover); }
+.group.active > .group-header {
+  border-left-color: var(--accent);
+  background: var(--accent-bg);
+}
+.group-header .name {
+  flex: 1;
+  min-width: 0;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.group-header .name input {
+  width: 100%;
+  font: inherit;
+  font-weight: 600;
+  padding: 1px 4px;
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  background: var(--bg);
+  color: var(--fg);
+}
+.group-header .count {
+  color: var(--muted);
+  font-size: 11px;
+  min-width: 18px;
+  text-align: center;
+  padding: 0 5px;
+  border-radius: 9px;
+  background: var(--hover);
+}
+.group-header .actions { display: none; gap: 2px; }
+.group-header:hover .actions { display: flex; }
+
+.icon-btn {
+  font: inherit;
+  width: 20px;
+  height: 20px;
+  line-height: 1;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  flex: none;
+}
+.icon-btn:hover { background: var(--line); color: var(--fg); }
+.icon-btn.danger:hover { color: var(--danger); }
+.icon-btn.toggle { transition: transform 0.15s; }
+.group.collapsed .icon-btn.toggle { transform: rotate(-90deg); }
+
+.tabs { padding: 2px 0 4px; min-height: 6px; }
+.group.collapsed .tabs { display: none; }
+
+.tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px 4px 28px;
+  cursor: pointer;
+  border-top: 2px solid transparent;
+}
+.tab:hover { background: var(--hover); }
+.tab.dragging { opacity: 0.4; }
+.tab .favicon { width: 16px; height: 16px; flex: none; }
+.tab .title {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.tab .close { visibility: hidden; }
+.tab:hover .close { visibility: visible; }
+.tab.pinned .title::before { content: "📌 "; font-size: 10px; }
+
+.empty {
+  padding: 4px 8px 4px 28px;
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* keyboard selection */
+.group.selected > .group-header { box-shadow: inset 0 0 0 2px var(--accent); }
+
+/* drag & drop targets */
+.group.dragging { opacity: 0.4; }
+.group { border-top: 2px solid transparent; }
+.group.drop-before { border-top-color: var(--accent); }
+.group.drop-after { box-shadow: inset 0 -2px 0 0 var(--accent); }
+.tab.drop { border-top-color: var(--accent); }
+.group-header.drop, .tabs.drop { box-shadow: inset 0 0 0 2px var(--accent); }
+
+#toast {
+  position: fixed;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: var(--fg);
+  color: var(--bg);
+  font-size: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}

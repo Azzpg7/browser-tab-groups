@@ -1,0 +1,36 @@
+{
+  "manifest_version": 3,
+  "name": "Tab Groups Sidebar",
+  "version": "0.1.0",
+  "description": "Named tab groups in the side panel. Click a group to load its tabs, drag tabs between groups.",
+  "minimum_chrome_version": "116",
+  "permissions": [
+    "sidePanel",
+    "tabs",
+    "storage",
+    "favicon"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
+  "action": {
+    "default_title": "Open Tab Groups"
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "commands": {
+    "_execute_action": {
+      "suggested_key": {
+        "default": "Ctrl+E"
+      },
+      "description": "Open / close the Tab Groups side panel"
+    }
+  }
+}
